@@ -3,16 +3,30 @@ import os, time, sys, pdb, logging
 
 logging.basicConfig(filename='watch.log',level=logging.DEBUG)
 
+def open_full_screen(full_screen):
+    if pag.locateOnScreen('D:\\Programming\\Python\\pyAutoGui\\WOT Blitz\\img\\fullScreen.png',region=full_screen, grayscale=True):
+        pag.click(pag.locateOnScreen('D:\\Programming\\Python\\pyAutoGui\\WOT Blitz\\img\\fullScreen.png',region=full_screen, grayscale=True))
+        logging.info('Open app full screen')
+    else:
+        time.sleep(10)
+        logging.info('Button not found, try again')
+        open_full_screen(full_screen)
+        
 def load_game():
-    pag.click(174, 882)
+    size = pag.size()
+    search_bar = int(size[0]/10)
+    pag.click(search_bar, size[1])
     time.sleep(1)
     pag.typewrite('bluestacks')
     time.sleep(1)
     pag.hotkey('enter')
     logging.info('Open exe')
-    time.sleep(5)
-    pag.click(1296, 82)
-    logging.info('Open app full screen')
+    time.sleep(10)
+    #pag.click(1296, 82)
+    top_right_corner = (0,int(size[0]/2),int(size[1]/2),size[1])
+    print(f'Cordinates of top right corner {top_right_corner}')
+    logging.info(f'Cordinates of top right corner {top_right_corner}')
+    open_full_screen(top_right_corner)
     time.sleep(5)
     pag.click(210, 178)
     logging.info('Start game')
@@ -35,7 +49,7 @@ try:
     #while True:
     logging.info('Game start')
     load_game()
-    logging.info('Video start')
-    watch_video()
+    #logging.info('Video start')
+    #watch_video()
 except KeyboardInterrupt:
     print('\n')
