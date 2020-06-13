@@ -1,5 +1,5 @@
 import pyautogui as pag
-import time, random, logging
+import time, random, logging, datetime
 '''Open BlueStack app on full screen and run bot'''
 #pag.position()
 logging.basicConfig(filename='blitz.log',level=logging.DEBUG, format='%(asctime)s %(message)s')
@@ -20,7 +20,7 @@ def back_button():
 
 def play_video():
     '''Play video method stand for play video, and close it after video ends'''
-    video_button = (1373, 318)
+    video_button = (1373, 422)
     play_button = (859, 616)
     
 
@@ -84,21 +84,26 @@ def change_user():
     pag.press('enter')
 
 def open_box():
-    #Open menu
+    logging.info("Start opaning box")
     pag.click(1381, 97)
+    logging.info("Open menu")
     time.sleep(random.randint(2,4))
+    #pag.screenshot("\\actions\\" + str(datetime.datetime.now()).replace(":", "-") + ".png")
     
-    #Click boxes
     pag.click(1318, 198)
+    logging.info("Open box menu")
     time.sleep(random.randint(2,4))
     
-    #Open first box
     pag.click(229, 704)
-    time.sleep(random.randint(4,6))
-    pag.click()
+    logging.info("Open first box")
+    time.sleep(random.randint(2,4))
 
-    #Back to main
+    pag.click()
+    logging.info("Close opaned prise")
+    time.sleep(random.randint(2,4))
+
     back_button()
+    logging.info("Back to main manu")
 
 def open_game():
     pag.hotkey('win', 's')
@@ -108,8 +113,8 @@ def open_game():
     pag.hotkey('enter')
 
 #open_game()
-count = 1
-box = 1
+count = 2
+box = 2
 while True:
     # default count < 6
     
@@ -118,23 +123,22 @@ while True:
             open_box()
             if box == 1 or box == 2:
                 box += 1
-                logging.info("Открыл " + str(box) + " контейнер.")
+                logging.info("Open " + str(box) + " box.")
         play_video()
-        logging.info("Посмотрел " + str(count) + " видео.")
+        logging.info("Watch " + str(count) + " video.")
         count += 1
         time.sleep(random.randint(132, 140))
         
     elif count == 6:
         xp()
-        logging.info("Получил ?? XP опыта")
+        logging.info("Get ?? XP")
         count += 1
-        time.sleep(random.randint(1, 2))
-
-    elif count == 7:
         time.sleep(random.randint(100, 160))
         open_box()
         box += 1
-        logging.info("Открыл " + str(box) + " контейнер.")
+        logging.info("Open " + str(box) + " box.")
+
+    elif count == 7:
         #change_user()
         #logging.info("Сменил пользователя")
         #count = 1
