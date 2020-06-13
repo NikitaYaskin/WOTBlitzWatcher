@@ -78,7 +78,7 @@ def change_user():
     #Enter password
     pag.moveTo(744, 410, random.randint(2, 4))
     pag.click()
-    pag.typewrite('OlaDiana2', interval=0.15) 
+    pag.typewrite('Enter password', interval=0.15) 
 
     #Press Enter
     pag.press('enter')
@@ -113,8 +113,9 @@ def open_game():
     pag.hotkey('enter')
 
 #open_game()
-count = 2
-box = 2
+count = 1
+box = 1
+user = 1
 while True:
     # default count < 6
     
@@ -141,7 +142,9 @@ while True:
     elif count == 7:
         #change_user()
         #logging.info("Сменил пользователя")
+        #user += 1
         #count = 1
-        break
         #time.sleep(86400) if script must run all day long
         #pag.click(65, 94)
+        #if user == 3: break
+        break
