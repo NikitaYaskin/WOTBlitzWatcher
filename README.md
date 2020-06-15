@@ -1,4 +1,5 @@
-# Blitz ADS Watcher
+# Blitz ADS Watcher and box opener
+
 Application for automatic daily viewing of ads and opening containers in Blitz.
 
 # Now it only works on screen 1440 x 900 and doesn't see just work on timing
