@@ -20,7 +20,7 @@ def back_button():
 
 def play_video():
     '''Play video method stand for play video, and close it after video ends'''
-    video_button = (1373, 422)
+    video_button = (1373, 316)
     play_button = (859, 616)
     
 
@@ -49,6 +49,7 @@ def xp():
 
     #Back to main menu
     back_button()
+    time.sleep(random.randint(2,4))
 
 def change_user():
     pag.moveTo(55, 832, random.randint(2, 4))
@@ -98,7 +99,7 @@ def open_box():
     logging.info("Open first box")
     time.sleep(random.randint(2,4))
 
-    pag.click()
+    pag.click(clicks=2)
     logging.info("Close opaned prise")
     time.sleep(random.randint(2,4))
 
@@ -128,13 +129,13 @@ while True:
         play_video()
         logging.info("Watch " + str(count) + " video.")
         count += 1
-        time.sleep(random.randint(132, 140))
+        time.sleep(random.randint(131, 135))
         
     elif count == 6:
         xp()
         logging.info("Get ?? XP")
         count += 1
-        time.sleep(random.randint(100, 160))
+        time.sleep(random.randint(70, 100))
         open_box()
         box += 1
         logging.info("Open " + str(box) + " box.")
