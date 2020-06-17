@@ -9,20 +9,16 @@ def close_video():
     exit_button = (1400, 82)
     exit_button2 = (32, 77)
 
-    #pag.moveTo(exit_button[0], exit_button[1], random.randint(2,4))
     pag.click(exit_button[0], exit_button[1])
 
 def back_button():
-    back = (51, 75)
-
-    #pag.moveTo(back[0], back[1], random.randint(2,4))
-    pag.click(back[0], back[1])
+    pag.click(51, 75)
 
 def play_video(delay):
     '''Play video method stand for play video, and close it after video ends'''
     logging.info("Start plaing video")
-    video_button = (1373, 316)
-    play_button = (859, 616)
+    video_button = (1373, 316)#To do find video button without coding it !!!
+    play_button = (859, 616)#To do find play button without coding it !!!
 
     logging.info("Click on play video button")
     pag.click(video_button[0], video_button[1])
@@ -81,7 +77,7 @@ def change_user(delay):
     #Enter password
     pag.moveTo(744, 410, delay)
     pag.click()
-    pag.typewrite('Enter password', interval=0.15) 
+    pag.typewrite('password', interval=0.1) 
 
     #Press Enter
     pag.press('enter')
@@ -89,10 +85,11 @@ def change_user(delay):
 def open_box(delay):
     logging.info("Start opaning box")
     pag.click(1381, 97)
+
     logging.info("Open menu")
     time.sleep(delay)
     
-    pag.click(1318, 198)
+    pag.click(1024, 159)#1318, 198)
     logging.info("Open box menu")
     time.sleep(delay)
     
@@ -138,17 +135,18 @@ while True:
         xp(timedelay)
         logging.info("Get ?? XP")
         count += 1
-        time.sleep(random.randint(70, 100))
-        open_box(timedelay)
+        if box == 3:
+        	time.sleep(random.randint(70, 100))
+        	open_box(timedelay)
         box += 1
         logging.info("Open " + str(box) + " box.")
 
     elif count == 7:
-        #change_user(timedelay)
-        #logging.info("Сменил пользователя")
-        #user += 1
-        #count = 1
+        '''change_user(timedelay)
+        logging.info("Сменил пользователя")
+        user += 1
+        count = 1
         #time.sleep(86400) if script must run all day long
-        #pag.click(65, 94)
-        #if user == 3: break
+        pag.click(65, 94)
+        if user == 3: break'''
         break
