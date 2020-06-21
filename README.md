@@ -11,7 +11,9 @@ Resolution: 1440 x 900
 
 # Bluestacks settings
 Resolution: 1280 x 720
+
 DPI: 240
+
 Performance: 2 cores, 2048 Mb
 
 Bluestacks official site https://www.bluestacks.com/index.html
