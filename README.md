@@ -7,7 +7,7 @@ Application for automatic daily viewing of ads and opening containers in Blitz.
 For everything to work correctly, you will need Windows 10, install Bluestacks, go to your google account and WOT Blitz in Bluestacks.
 
 # Windows settings
-Resolution: 1440 x 900
+Screen resolution: 1440 x 900
 
 # Bluestacks settings
 Resolution: 1280 x 720
