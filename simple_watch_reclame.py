@@ -1,7 +1,6 @@
 import pyautogui as pag
 import time, random, logging, datetime
-'''Open BlueStack app on full screen and run bot'''
-#pag.position()
+
 logging.basicConfig(filename='blitz.log',level=logging.DEBUG, format='%(asctime)s %(message)s')
 logging.info('Started')
 
@@ -15,21 +14,20 @@ def back_button():
     pag.click(51, 75)
 
 def play_video(delay):
-    '''Play video method stand for play video, and close it after video ends'''
-    logging.info("Start plaing video")
-    video_button = (1373, 316)#To do find video button without coding it !!!
-    play_button = (859, 616)#To do find play button without coding it !!!
+	logging.info("Start plaing video")
+	video_button = (1373, 314)
+	play_button = (859, 616)
 
-    logging.info("Click on play video button")
-    pag.click(video_button[0], video_button[1])
-    time.sleep(delay)
-    
-    logging.info("Confirm to play video")
-    pag.click(play_button[0], play_button[1])
-    time.sleep(45)
-    
-    logging.info("Close video after 45 sec delay")
-    close_video()
+	logging.info("Click on play video button")
+	pag.click(video_button[0], video_button[1])
+	time.sleep(delay)
+
+	logging.info("Confirm to play video")
+	pag.click(play_button[0], play_button[1])
+	time.sleep(45)
+
+	logging.info("Close video after 45 sec delay")
+	close_video()
 
 def xp(delay):
     '''Xp method stand for getting 1000 xp after watching video'''
@@ -48,48 +46,62 @@ def xp(delay):
     back_button()
     time.sleep(delay)
 
-def change_user(delay):
+def logout(delay):
+	pag.moveTo(55, 832, delay)
+	logging.info("Move to end of side menu")
+	pag.click()
+
+	logging.info("Click on settings icon")
+	time.sleep(delay)
+	pag.click()
+
+	logging.info("Disconnect")
+	pag.moveTo(1163, 663, delay)
+	pag.click()
+
+def change_region(region, delay):
+	logging.info("Change region")
+	pag.moveTo(849, 755, delay)
+	pag.click()
+
+	logging.info("Change to yuor region")
+	pag.moveTo(region[0], region[1], delay)
+	pag.click()
+
+def login(login, password, delay):
+	logging.info("Start login")
+	logging.info("Remove previos login")
+	pag.click(989, 320, delay)
+
+	logging.info("Enter login")
+	pag.moveTo(721, 325, delay)
+	pag.click()
+	pag.typewrite(login) 
+
+	logging.info("Enter password")
+	pag.moveTo(721, 410, delay)
+	pag.click()
+	pag.typewrite(password) 
+
+	logging.info("Press Enter")
+	pag.press('enter')
+	time.sleep(10)
+
+def change_user(login_text, password_text, delay):
     
-    pag.moveTo(55, 832, delay)
-    #Move to end of side menu
-    pag.click()
-
-    #Click on settings icon
+    logout(delay)
     time.sleep(delay)
-    pag.click()
-
-    #Disconnect
-    pag.moveTo(1163, 663, delay)
-    pag.click()
-
-    #Change region (if you have second account on same password and login)
-    pag.moveTo(849, 755, delay)
-    pag.click()
-
-    #Change to europe
-    pag.moveTo(721, 438, delay)
-    pag.click()
-    '''#Europe
-    (721, 354)
-    #Russia
-    (721, 438)'''
-
-    #Enter password
-    pag.moveTo(744, 410, delay)
-    pag.click()
-    pag.typewrite('password', interval=0.1) 
-
-    #Press Enter
-    pag.press('enter')
+    #change_region( ,delay)
+    login(login_text, password_text, delay)
 
 def open_box(delay):
     logging.info("Start opaning box")
-    pag.click(1381, 97)
+    pag.click(1381, 100)
 
     logging.info("Open menu")
     time.sleep(delay)
     
-    pag.click(1024, 159)#1318, 198)
+    pag.click(1024, 158)#1318, 198)
     logging.info("Open box menu")
     time.sleep(delay)
     
@@ -97,10 +109,11 @@ def open_box(delay):
     logging.info("Open first box")
     time.sleep(delay)
 
-    pag.click(clicks=2)
+    back_button()
     logging.info("Close opaned prise")
     time.sleep(delay)
 
+    back_button()
     back_button()
     logging.info("Back to main manu")
 
@@ -111,16 +124,35 @@ def open_game():
     time.sleep(random.randint(1,3))
     pag.hotkey('enter')
 
-#open_game()
-count = 1
-box = 1
-user = 1
-timedelay = random.randint(2, 4)
+def count_users(user, users):
+	for key in users:
+		user += len(users[key])
+	return user
 
+count, box = 1, 1
+user, user_counter = 0, 0
+timedelay = 3
+logins, passwords = [], []
+users = {"RU": {"mail1@mail.com": "password1", 
+				"mail2@gmail.com": "password2"}}
+REGIONS = {"EU": [721, 354],"RU": [721, 438],"NA": [721, 530],"AS": [721, 619],"AC": [721, 687]} 
+
+reg = len(users.keys())
+logging.info("There is " + str(reg) + " regions.")
+
+user = count_users(user, users)
+logging.info("There is " + str(user) + " accounts.")
+
+for i, y in users["RU"].items():
+	logins.append(i)
+	passwords.append(y)
+
+login(logins[user_counter], passwords[user_counter], timedelay)
+logging.info("Login to " + str(logins[user_counter]) + " user.")
+
+'''
 while True:
-    # default count < 6
-    
-    if count <= 5:
+	if count <= 5:
         if count == 1 or count == 4:
             open_box(timedelay)
             if box == 1 or box == 2:
@@ -142,11 +174,13 @@ while True:
         logging.info("Open " + str(box) + " box.")
 
     elif count == 7:
-        '''change_user(timedelay)
-        logging.info("Сменил пользователя")
-        user += 1
-        count = 1
-        #time.sleep(86400) if script must run all day long
-        pag.click(65, 94)
-        if user == 3: break'''
-        break
+    	if user_counter == user:
+    		logout(timedelay)
+    		break
+
+    	user_counter += 1
+    	change_user(logins[user_counter], passwords[user_counter], timedelay)
+    	#TypeError: 'str' object is not callable
+    	logging.info("Change user to " + str(logins[user_counter]))
+    	count = 1
+    	pag.click(65, 94)'''
