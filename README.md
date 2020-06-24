@@ -18,5 +18,8 @@ Performance: 2 cores, 2048 Mb
 
 Bluestacks official site https://www.bluestacks.com/index.html
 
-# !!! NEW !!! Setup accounts
+# !!! NEW !!! Setup account
 Change mail1@mail.com to your email address and change password1 to your password.
+
+# Before starting the script
+You must exit of your account, and enter login screen. Then run script.
