@@ -32,7 +32,7 @@ def play_video(cordinates, delay):
 
 	logging.info("Confirm to play video")
 	pag.click(play_button[0], play_button[1])
-	time.sleep(35)
+	time.sleep(33)
 
 	logging.info("Close video after 35 sec delay")
 	close_video()
@@ -143,8 +143,8 @@ def zeroing():
 	count, box = 1, 1
 
 count, box = 1, 1
-user, user_counter = 0, 2
-timedelay = 3
+user, user_counter = 0, 0
+timedelay = 2
 x = False
 logins, passwords = [], []
 
@@ -187,14 +187,14 @@ while True:
 		play_video(x, timedelay)
 		logging.info("Watch " + str(count) + " video.")
 		count += 1
-		time.sleep(random.randint(131, 135))
+		time.sleep(130)
 
 	elif count == 6:
 		xp(timedelay)
 		logging.info("Get ?? XP")
 		count += 1
 		if box == 3:
-			time.sleep(random.randint(70, 100))
+			time.sleep(80)
 			open_box(timedelay)
 		box += 1
 		logging.info("Open " + str(box) + " box.")
