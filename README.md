@@ -18,8 +18,10 @@ Performance: 2 cores, 2048 Mb
 
 Bluestacks official site https://www.bluestacks.com/index.html
 
-# !!! NEW !!! Setup account
-Change mail1@mail.com to your email address and change password1 to your password.
+# Setup account
+Create file with name "logins.txt", and enter in it email and password.
+Enter your region like that "EU" -> Europe,"RU" -> Russia, "NA" -> North America,"AS" -> Asia
+{"EU": {"Email": "Password", "Email1": "Password1"}, "RU": {"Emai2": "Password2", "Email3": "Password3"}}
 
 # Before starting the script
 You must exit of your account, and enter login screen. Then run script.
