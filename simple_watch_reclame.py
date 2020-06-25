@@ -163,8 +163,8 @@ for r in users.keys():
 		logins.append(i)
 		passwords.append(y)
 
-#login(logins[user_counter], passwords[user_counter], timedelay)
-#logging.info("Login to " + str(logins[user_counter]) + " user.")
+login(logins[user_counter], passwords[user_counter], timedelay)
+logging.info("Login to " + str(logins[user_counter]) + " user.")
 
 while True:
 	if count <= 5:
