@@ -5,6 +5,7 @@ logging.basicConfig(filename='blitz.log',level=logging.DEBUG, format='%(asctime)
 logging.info('Started')
 
 def load_logins():
+	"""Load logins from logins.txt file and return it like users variable"""
 	logging.info("Load logins from logins.txt file")
 	file = open("logins.txt", "r")
 	contents = file.read()
@@ -13,15 +14,18 @@ def load_logins():
 	return users
 
 def close_video():
+	"""Clicks cross button, to close video"""
     exit_button = (1400, 82)
     exit_button2 = (32, 77)
 
     pag.click(exit_button[0], exit_button[1])
 
 def back_button():
+	"""Clicks back button, to return to main menu"""
     pag.click(51, 75)
 
 def play_video(cordinates, delay):
+	"""Start playng the wideo, after 33 seconds close video"""
 	logging.info("Start plaing video")
 	video_button = (cordinates)
 	play_button = (859, 616)
@@ -38,7 +42,7 @@ def play_video(cordinates, delay):
 	close_video()
 
 def xp(delay):
-    '''Xp method stand for getting 1000 xp after watching video'''
+    """Xp method stand for getting xp after watching video"""
     box = (54, 410)
     box_xp = (982, 395)
     
@@ -55,6 +59,7 @@ def xp(delay):
     time.sleep(delay)
 
 def logout(delay):
+	"""Logout account"""
 	pag.moveTo(55, 832, delay)
 	logging.info("Move to end of side menu")
 	pag.click()
@@ -68,6 +73,7 @@ def logout(delay):
 	pag.click()
 
 def change_region(region, delay):
+	"""Change account region"""
 	logging.info("Change region")
 	pag.moveTo(849, 755, delay)
 	pag.click()
@@ -77,6 +83,7 @@ def change_region(region, delay):
 	pag.click()
 
 def login(login, password, delay):
+	"""Login to account"""
 	logging.info("Start login")
 	logging.info("Remove previos login")
 	pag.click(989, 320, delay)
@@ -105,6 +112,7 @@ def change_user(login_text, password_text, delay):
     login(login_text, password_text, delay)
 
 def open_box(delay):
+	"""Stand for every day opaning 3 first boxes"""
     logging.info("Start opaning box")
     pag.click(1381, 100)
 
