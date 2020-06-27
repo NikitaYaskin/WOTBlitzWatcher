@@ -155,7 +155,7 @@ user, user_counter = 0, 2
 
 timedelay = 2
 x = False
-logins, passwords = [], []
+logins, passwords, timeTake = [], [], []
 
 users = load_logins()
 
@@ -221,10 +221,12 @@ while True:
 		user_counter += 1
 		endWatching = datetime.datetime.now()
 		timer = endWatching - startWatching
+		timeTake.append(str(user_counter) + str(timer.minutes) + " minutes " + str(timer.seconds) + " seconds.")
 		print("Watchin video in this account " + str(timer.minutes) + " minutes " + str(timer.seconds))
-		logging.info("Watchin video in this account " + str(timer.minutes) + " minutes " + str(timer.seconds))
+		logging.info("Watchin video in this account " + str(timer.minutes) + " minutes " + str(timer.seconds) + " seconds")
 		if user_counter == user:
 			logout(timedelay)
+			print(timeTake)
 			break
 
 		change_user(logins[user_counter], passwords[user_counter], timedelay)
