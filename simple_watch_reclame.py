@@ -35,7 +35,7 @@ def play_video(cordinates, delay):
 
 	logging.info("Confirm to play video")
 	pag.click(play_button[0], play_button[1])
-	time.sleep(33)
+	time.sleep(35)
 
 	logging.info("Close video after 35 sec delay")
 	close_video()
@@ -90,17 +90,19 @@ def login(login, password, delay):
 	logging.info("Enter login")
 	time.sleep(delay)
 	pag.click(721, 325)
+	print(login)
 	pag.typewrite(login)
 
 	logging.info("Enter password")
 	time.sleep(delay)
 	pag.click(721, 410)
+	print(password)
 	pag.typewrite(password) 
 
 	logging.info("Press Enter")
 	time.sleep(delay)
 	pag.press('enter')
-	time.sleep(20)
+	time.sleep(30)
 	back_button()
 	time.sleep(10)
 
@@ -151,10 +153,13 @@ def zeroing():
 	count, box = 1, 1
 
 count, box = 1, 1
-user, user_counter = 0, 2
+user, user_counter = 0, 0
+x = False
 
 timedelay = 2
-x = False
+
+logging.info("Start detecting video button")
+
 logins, passwords, timeTake = [], [], []
 
 users = load_logins()
@@ -175,8 +180,8 @@ for i, y in users["RU"].items():
 if count == 1:
 	login(logins[user_counter], passwords[user_counter], timedelay)
 	logging.info("Login to " + str(logins[user_counter]) + " user.")
-	startWatching = datetime.datetime.now()
-	print("Login to " + str(logins[user_counter]) + " user in " + str(startWatching.strftime("%Y-%m-%d %H:%M:%S")))
+	print("Login to " + str(logins[user_counter]) + " user in ")
+
 
 while True:
 	if count <= 5:
@@ -184,17 +189,17 @@ while True:
 			open_box(timedelay)
 			time.sleep(timedelay)
 			if count == 1:
-				logging.info("Start detecting video button")
 				while not x:
 					if pag.pixelMatchesColor(1423, 385 ,(62, 152, 15), tolerance=10) or pag.pixelMatchesColor(1423, 385 ,(63, 155, 16), tolerance=10):
 						x = (1420, 390)
 						logging.info("Video button detected in upper position")
 						print(1420, 390)
+
 					elif pag.pixelMatchesColor(1425, 273 ,(62, 154, 15), tolerance=10):
 						x = (1420, 282)
 						logging.info("Video button detected in lower position")
 						print(1420, 282)
-					time.sleep(10)
+						time.sleep(10)
 			if box == 1 or box == 2:
 				logging.info("Open " + str(box) + " box.")
 				print("Open " + str(box) + " box.")
@@ -219,18 +224,12 @@ while True:
 
 	elif count == 7:
 		user_counter += 1
-		endWatching = datetime.datetime.now()
-		timer = endWatching - startWatching
-		timeTake.append(str(user_counter) + str(timer.minutes) + " minutes " + str(timer.seconds) + " seconds.")
-		print("Watchin video in this account " + str(timer.minutes) + " minutes " + str(timer.seconds))
-		logging.info("Watchin video in this account " + str(timer.minutes) + " minutes " + str(timer.seconds) + " seconds")
 		if user_counter == user:
 			logout(timedelay)
 			print(timeTake)
 			break
 
 		change_user(logins[user_counter], passwords[user_counter], timedelay)
-		logging.info("Change user to " + str(logins[user_counter]) + " in " + str(endWatching.strftime("%Y-%m-%d %H:%M:%S")))
+		logging.info("Change user to " + str(logins[user_counter]))
 		print("Change user to " + str(logins[user_counter]))
 		count, box = 1, 1
-		#pag.click(65, 94)
