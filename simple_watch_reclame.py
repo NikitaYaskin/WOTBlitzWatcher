@@ -121,7 +121,7 @@ def open_box(delay):
 	logging.info("Open menu")
 	time.sleep(delay)
 
-	pag.click(1024, 160)#1318, 198)
+	pag.click(1101, 160)
 	logging.info("Open box menu")
 	time.sleep(delay)
 
@@ -192,12 +192,12 @@ while True:
 				while not x:
 					if pag.pixelMatchesColor(1423, 385 ,(62, 152, 15), tolerance=10) or pag.pixelMatchesColor(1423, 385 ,(63, 155, 16), tolerance=10):
 						x = (1420, 390)
-						logging.info("Video button detected in upper position")
+						logging.info("Video button detected in lowwer position")
 						print(1420, 390)
 
 					elif pag.pixelMatchesColor(1425, 273 ,(62, 154, 15), tolerance=10):
 						x = (1420, 282)
-						logging.info("Video button detected in lower position")
+						logging.info("Video button detected in higher position")
 						print(1420, 282)
 						time.sleep(10)
 			if box == 1 or box == 2:
