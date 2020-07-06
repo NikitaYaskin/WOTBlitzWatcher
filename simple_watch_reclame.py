@@ -23,6 +23,27 @@ def back_button():
 	"""Clicks back button, to return to main menu"""
 	pag.click(51, 75)
 
+def open_box_menu(delay):
+	"""Open box menu"""
+	logging.info("Start opaning box")
+	pag.click(1381, 100)
+
+	logging.info("Open menu")
+	time.sleep(delay)
+
+	pag.click(1101, 160)
+	logging.info("Open box menu")
+	time.sleep(delay)
+
+def close_box(delay):
+	back_button()
+	logging.info("Close opaned prise")
+	time.sleep(delay)
+
+	back_button()
+	back_button()
+	logging.info("Back to main manu")
+
 def play_video(cordinates, delay):
 	"""Start playng the wideo, after 33 seconds close video"""
 	logging.info("Start plaing video")
@@ -115,36 +136,16 @@ def change_user(login_text, password_text, delay):
 
 def open_box(delay):
 	"""Stand for every day opaning 3 first boxes"""
-	logging.info("Start opaning box")
-	pag.click(1381, 100)
-
-	logging.info("Open menu")
-	time.sleep(delay)
-
-	pag.click(1101, 160)
-	logging.info("Open box menu")
-	time.sleep(delay)
+	open_box_menu(delay)
 
 	pag.click(229, 704)
 	logging.info("Open first box")
 	time.sleep(delay)
 
-	back_button()
-	logging.info("Close opaned prise")
-	time.sleep(delay)
-
-	back_button()
-	back_button()
-	logging.info("Back to main manu")
-
-def open_game():
-    pag.hotkey('win', 's')
-    time.sleep(random.randint(1,3))
-    pag.typewrite('bluestacks')
-    time.sleep(random.randint(1,3))
-    pag.hotkey('enter')
+	close_box(delay)
 
 def count_users(user, users):
+	"""Count how much users in file"""
 	for key in users:
 		user += len(users[key])
 	return user
@@ -152,9 +153,32 @@ def count_users(user, users):
 def zeroing():
 	count, box = 1, 1
 
+def pixel_detection(delay, spot, colour):
+	"""Detects colour of pixel"""
+	var = False
+	while not var:
+		if pag.pixelMatchesColor(spot[0], spot[1] ,(colour[0], colour[1], colour[2]), tolerance=10):
+			var = 1
+			return True
+
+def check_medium_box(delay, detection):
+	"""Check second and third boxes"""
+	open_box_menu(delay)
+	boxes = {(836, 291): (725, 684), (1331, 291): (1213, 680)}
+	for item in boxes:
+		while not detection:
+			if pixel_detection(delay, item, (196, 33, 22)):
+				detection = boxes[item]
+				logging.info("Detect box")
+				print(boxes[item])
+				logging.info("Open box")
+				pag.click(boxes[item])
+				time.sleep(delay)
+				close_box(delay)
+
 count, box = 1, 1
 user, user_counter = 0, 0
-x = False
+videoButtonLocation, boxDetection = False, False
 
 timedelay = 2
 
@@ -189,17 +213,18 @@ while True:
 			open_box(timedelay)
 			time.sleep(timedelay)
 			if count == 1:
-				while not x:
+				while not videoButtonLocation:
 					if pag.pixelMatchesColor(1423, 385 ,(62, 152, 15), tolerance=10) or pag.pixelMatchesColor(1423, 385 ,(63, 155, 16), tolerance=10):
-						x = (1420, 390)
+						videoButtonLocation = (1420, 390)
 						logging.info("Video button detected in lowwer position")
 						print(1420, 390)
 
 					elif pag.pixelMatchesColor(1425, 273 ,(62, 154, 15), tolerance=10):
-						x = (1420, 282)
+						videoButtonLocation = (1420, 282)
 						logging.info("Video button detected in higher position")
 						print(1420, 282)
 						time.sleep(10)
+
 			if box == 1 or box == 2:
 				logging.info("Open " + str(box) + " box.")
 				print("Open " + str(box) + " box.")
@@ -224,6 +249,7 @@ while True:
 
 	elif count == 7:
 		user_counter += 1
+		check_medium_box(timedelay, boxDetection)
 		if user_counter == user:
 			logout(timedelay)
 			print(timeTake)
