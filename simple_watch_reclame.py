@@ -128,7 +128,7 @@ def login(login, password, delay):
 	time.sleep(10)
 
 def change_user(login_text, password_text, delay):
-    
+    """Change user to next on list"""
     logout(delay)
     time.sleep(delay)
     #change_region( ,delay)
@@ -166,15 +166,18 @@ def check_medium_box(delay, detection):
 	open_box_menu(delay)
 	boxes = {(836, 291): (725, 684), (1331, 291): (1213, 680)}
 	for item in boxes:
-		while not detection:
-			if pixel_detection(delay, item, (196, 33, 22)):
-				detection = boxes[item]
-				logging.info("Detect box")
-				print(boxes[item])
-				logging.info("Open box")
-				pag.click(boxes[item])
-				time.sleep(delay)
-				close_box(delay)
+		if pixel_detection(delay, item, (196, 33, 22)):
+			detection = boxes[item]
+			logging.info("Detect box")
+			print(boxes[item])
+			logging.info("Open box")
+			pag.click(boxes[item])
+			time.sleep(delay)
+			back_button()
+			back_button()
+		elif boxes[-1]:
+			back_button()
+		else: print('No boxes')
 
 count, box = 1, 1
 user, user_counter = 0, 0
@@ -214,12 +217,12 @@ while True:
 			time.sleep(timedelay)
 			if count == 1:
 				while not videoButtonLocation:
-					if pag.pixelMatchesColor(1423, 385 ,(62, 152, 15), tolerance=10) or pag.pixelMatchesColor(1423, 385 ,(63, 155, 16), tolerance=10):
+					if pag.pixelMatchesColor(1423, 385 ,(62, 152, 15), tolerance=20) or pag.pixelMatchesColor(1423, 385 ,(63, 155, 16), tolerance=20):
 						videoButtonLocation = (1420, 390)
 						logging.info("Video button detected in lowwer position")
 						print(1420, 390)
 
-					elif pag.pixelMatchesColor(1425, 273 ,(62, 154, 15), tolerance=10):
+					elif pag.pixelMatchesColor(1425, 273 ,(62, 154, 15), tolerance=20):
 						videoButtonLocation = (1420, 282)
 						logging.info("Video button detected in higher position")
 						print(1420, 282)
@@ -229,7 +232,7 @@ while True:
 				logging.info("Open " + str(box) + " box.")
 				print("Open " + str(box) + " box.")
 				box += 1
-		play_video(x, timedelay)
+		play_video(videoButtonLocation, timedelay)
 		logging.info("Watch " + str(count) + " video.")
 		print("Watch " + str(count) + " video.")
 		count += 1
