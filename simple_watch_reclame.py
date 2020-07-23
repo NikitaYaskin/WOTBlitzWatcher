@@ -125,7 +125,7 @@ def login(login, password, delay):
         pag.press('enter')
         time.sleep(25)
         
-        if pag.pixelMatchesColor(683, 171, (238, 238, 238), tolerance=10) == None:
+        if pag.locateOnScreen('img\Wboi1.png', confidence=0.9) == None:
                 back_button()
                 time.sleep(5)
 
@@ -177,9 +177,10 @@ def check_medium_box(delay, detection):
                         time.sleep(delay)
                         back_button()
                         back_button()
-                elif boxes[-1]:
-                        back_button()
-                else: print('No boxes')
+                        
+                else:
+                        print('No boxes')
+                        break
 
 count, box = 1, 1
 user, user_counter = 0, 0
@@ -267,3 +268,4 @@ while True:
                 logging.info("Change user to " + str(logins[user_counter]))
                 print("Change user to " + str(logins[user_counter]))
                 count, box = 1, 1
+                videoButtonLocation, boxDetection = False, False
