@@ -183,7 +183,7 @@ def check_medium_box(delay, detection):
                         break
 
 count, box = 1, 1
-user, user_counter = 0, 0
+user, user_counter = 0, 3
 videoButtonLocation, boxDetection = False, False
 
 timedelay = 2
@@ -211,12 +211,19 @@ if count == 1:
         login(logins[user_counter], passwords[user_counter], timedelay)
         logging.info("Login to " + str(logins[user_counter]) + " user.")
         print("Login to " + str(logins[user_counter]) + " user in ")
+        imgName = 'count/' + logins[user_counter][:7] + str(datetime.date.today()) + '.png'
+        pag.screenshot(imgName, region=(117, 50, 1197, 42))
 
 
 while True:
         if count <= 5:
                 if count == 1 or count == 4:
-                        open_box(timedelay)
+                        if box == 1 or box == 2:
+                                logging.info("Open " + str(box) + " box.")
+                                print("Open " + str(box) + " box.")
+                                box += 1
+                                open_box(timedelay)
+                                
                         time.sleep(timedelay)
                         if count == 1:
                                 while not videoButtonLocation:
@@ -260,6 +267,8 @@ while True:
                         check_medium_box(timedelay, boxDetection)
                         
                 if user_counter == user:
+                        imgName = 'count/' + logins[user_counter-1][:6] + str(datetime.date.today()) + '1.png'
+                        pag.screenshot(imgName, region=(117, 50, 1197, 42))
                         logout(timedelay)
                         print(timeTake)
                         break
@@ -269,3 +278,4 @@ while True:
                 print("Change user to " + str(logins[user_counter]))
                 count, box = 1, 1
                 videoButtonLocation, boxDetection = False, False
+
