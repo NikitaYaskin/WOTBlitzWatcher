@@ -62,21 +62,21 @@ def play_video(cordinates, delay):
         close_video()
 
 def xp(delay):
-    """Xp method stand for getting xp after watching video"""
-    box = (54, 410)
-    box_xp = (982, 395)
-    
-    logging.info("Open tasks")
-    pag.click(box)
-    time.sleep(delay)
-    
-    logging.info("Get XP from combat missions menu")
-    pag.click(box_xp)
-    time.sleep(delay)
+        """Xp method stand for getting xp after watching video"""
+        box = (54, 410)
+        box_xp = (982, 395)
 
-    logging.info("Back to main menu")
-    back_button()
-    time.sleep(delay)
+        logging.info("Open tasks")
+        pag.click(box)
+        time.sleep(delay)
+
+        logging.info("Get XP from combat missions menu")
+        pag.click(box_xp)
+        time.sleep(delay)
+
+        logging.info("Back to main menu")
+        back_button()
+        time.sleep(delay)
 
 def logout(delay):
         """Logout account"""
@@ -130,11 +130,11 @@ def login(login, password, delay):
                 time.sleep(5)
 
 def change_user(login_text, password_text, delay):
-    """Change user to next on list"""
-    logout(delay)
-    time.sleep(delay)
-    #change_region( ,delay)
-    login(login_text, password_text, delay)
+        """Change user to next on list"""
+        logout(delay)
+        time.sleep(delay)
+        #change_region( ,delay)
+        login(login_text, password_text, delay)
 
 def open_box(delay):
         """Stand for every day opaning 3 first boxes"""
@@ -154,6 +154,7 @@ def count_users(user, users):
 
 def zeroing():
         count, box = 1, 1
+        videoButtonLocation, boxDetection = False, False
 
 def pixel_detection(delay, spot, colour):
         """Detects colour of pixel"""
@@ -177,13 +178,9 @@ def check_medium_box(delay, detection):
                         time.sleep(delay)
                         back_button()
                         back_button()
-                        
-                else:
-                        print('No boxes')
-                        break
 
 count, box = 1, 1
-user, user_counter = 0, 3
+user, user_counter = 0, 0
 videoButtonLocation, boxDetection = False, False
 
 timedelay = 2
@@ -218,7 +215,7 @@ if count == 1:
 while True:
         if count <= 5:
                 if count == 1 or count == 4:
-                        if box == 1 or box == 2:
+                        if box == 1:
                                 logging.info("Open " + str(box) + " box.")
                                 print("Open " + str(box) + " box.")
                                 box += 1
@@ -238,9 +235,10 @@ while True:
                                                 print(1420, 282)
                                                 time.sleep(10)
 
-                        if box == 1 or box == 2:
+                        if count == 3:
                                 logging.info("Open " + str(box) + " box.")
                                 print("Open " + str(box) + " box.")
+                                open_box(timedelay)
                                 box += 1
                 play_video(videoButtonLocation, timedelay)
                 logging.info("Watch " + str(count) + " video.")
@@ -253,9 +251,11 @@ while True:
                 logging.info("Get ?? XP")
                 print("Get ?? XP")
                 count += 1
+                
                 if box == 3:
                         time.sleep(80)
                         open_box(timedelay)
+                        
                 logging.info("Open " + str(box) + " box.")
                 print("Open " + str(box) + " box.")
                 box += 1
