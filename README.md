@@ -21,6 +21,7 @@ Bluestacks official site https://www.bluestacks.com/index.html
 # Setup account
 Create file with name "logins.txt", and enter in it email and password.
 Enter your region like that "EU" -> Europe,"RU" -> Russia, "NA" -> North America,"AS" -> Asia
+Login and password like this: 
 {"EU": {"Email": "Password", "Email1": "Password1"}, "RU": {"Emai2": "Password2", "Email3": "Password3"}}
 
 # Before starting the script
