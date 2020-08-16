@@ -5,11 +5,20 @@ logging.basicConfig(filename='blitz.log',level=logging.DEBUG, format='%(asctime)
 logging.info('Started')
 
 def check_if_main_menu():
+        """Checking if on desplay main menu"""
         if pag.locateOnScreen('img\Wboi1.png', confidence=0.9) == None:
                 back_button()
                 time.sleep(2)
                 check_if_main_menu()
 
+def locate_video_button():
+        """Find location of video button and return if it is"""
+        while not videoButtonLocation:
+                if pag.locateOnScreen('img//reclama2.png', confidence=0.9) != None:
+                        videoButtonLocation = pag.locateOnScreen('img//reclama1.png', confidence=0.9, region=(1330, 211, 104, 269))
+                        print(videoButtonLocation)
+                        return videoButtonLocation
+			
 def load_logins():
         """Load logins from logins.txt file and return it like users variable"""
         logging.info("Load logins from logins.txt file")
@@ -229,22 +238,14 @@ while True:
                                 
                         time.sleep(timedelay)
                         if count == 1:
-                                while not videoButtonLocation:
-                                        if pag.pixelMatchesColor(1423, 385 ,(62, 152, 15), tolerance=20) or pag.pixelMatchesColor(1423, 385 ,(63, 155, 16), tolerance=20):
-                                                videoButtonLocation = (1420, 390)
-                                                logging.info("Video button detected in lowwer position")
-                                                print(1420, 390)
-
-                                        elif pag.pixelMatchesColor(1425, 273 ,(62, 154, 15), tolerance=20):
-                                                videoButtonLocation = (1420, 282)
-                                                logging.info("Video button detected in higher position")
-                                                print(1420, 282)
+                                videoButtonLocation = locate_video_button()
 
                         if count == 4:
                                 logging.info("Open " + str(box) + " box.")
                                 print("Open " + str(box) + " box.")
                                 open_box(timedelay)
                                 box += 1
+        
                 play_video(videoButtonLocation, timedelay)
                 logging.info("Watch " + str(count) + " video.")
                 print("Watch " + str(count) + " video.")
