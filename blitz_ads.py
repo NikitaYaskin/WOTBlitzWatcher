@@ -205,8 +205,8 @@ def check_medium_box(delay, detection):
                         print('No box', str(item))
                         break
 
-count, box = 2, 2
-user, user_counter = 0, 4
+count, box = 1, 1
+user, user_counter = 0, 0
 videoButtonLocation, boxDetection = False, False
 
 timedelay = 2
