@@ -11,13 +11,21 @@ def check_if_main_menu():
                 time.sleep(2)
                 check_if_main_menu()
 
-def locate_video_button():
+def locate_video_button(videoButtonLocation):
         """Find location of video button and return if it is"""
         while not videoButtonLocation:
-                if pag.locateOnScreen('img//reclama2.png', confidence=0.9) != None:
-                        videoButtonLocation = pag.locateOnScreen('img//reclama1.png', confidence=0.9, region=(1330, 211, 104, 269))
+                if pag.locateOnScreen('img//reclama2.png', confidence=0.8) != None:
+                        videoButtonLocation = pag.locateOnScreen('img//reclama2.png', confidence=0.9)
                         print(videoButtonLocation)
+                        logging.info("Location of video button if " + str(videoButtonLocation))
                         return videoButtonLocation
+
+def locate_box():
+        "Locate if able to open a box"
+        box = False
+        while not box:
+                if pag.locateOnScreen('img//box1.png', confidence=0.9) != None:
+                        return True
 			
 def load_logins():
         """Load logins from logins.txt file and return it like users variable"""
@@ -39,15 +47,16 @@ def back_button():
 
 def open_box_menu(delay):
         """Open box menu"""
-        logging.info("Start opaning box")
-        pag.click(1381, 100)
+        if locate_box():
+                logging.info("Start opaning box")
+                pag.click(1381, 100)
 
-        logging.info("Open menu")
-        time.sleep(delay)
+                logging.info("Open menu")
+                time.sleep(delay)
 
-        pag.click(1101, 160)
-        logging.info("Open box menu")
-        time.sleep(delay)
+                pag.click(1101, 160)
+                logging.info("Open box menu")
+                time.sleep(delay)
 
 def close_box(delay):
         back_button()
@@ -61,11 +70,13 @@ def close_box(delay):
 def play_video(cordinates, delay):
         """Start playng the wideo, after 33 seconds close video"""
         logging.info("Start plaing video")
-        video_button = (cordinates)
+        logging.info("Locating the video button")
+        print(datetime.datetime.now().strftime('%Y-%m-%d-%H:%M:%S'))
+        video_button = locate_video_button(videoButtonLocation)
         play_button = (859, 616)
 
         logging.info("Click on play video button")
-        pag.click(video_button[0], video_button[1])
+        pag.click(video_button)
         time.sleep(delay)
 
         logging.info("Confirm to play video")
@@ -126,13 +137,13 @@ def login(login, password, delay):
         time.sleep(delay)
         pag.click(721, 325)
         print(login)
-        pag.write(login)
+        pag.typewrite(login)
 
         logging.info("Enter password")
         time.sleep(delay)
         pag.click(721, 410)
         print(password)
-        pag.write(password) 
+        pag.typewrite(password) 
 
         logging.info("Press Enter")
         time.sleep(delay)
@@ -194,8 +205,8 @@ def check_medium_box(delay, detection):
                         print('No box', str(item))
                         break
 
-count, box = 1, 1
-user, user_counter = 0, 0
+count, box = 2, 2
+user, user_counter = 0, 4
 videoButtonLocation, boxDetection = False, False
 
 timedelay = 2
@@ -235,10 +246,7 @@ while True:
                                 print("Open " + str(box) + " box.")
                                 box += 1
                                 open_box(timedelay)
-                                
                         time.sleep(timedelay)
-                        if count == 1:
-                                videoButtonLocation = locate_video_button()
 
                         if count == 4:
                                 logging.info("Open " + str(box) + " box.")
@@ -250,7 +258,7 @@ while True:
                 logging.info("Watch " + str(count) + " video.")
                 print("Watch " + str(count) + " video.")
                 count += 1
-                time.sleep(130)
+                time.sleep(120)
 
         elif count == 6:
                 xp(timedelay)
@@ -259,7 +267,7 @@ while True:
                 count += 1
                 
                 if box == 3:
-                        time.sleep(80)
+                        time.sleep(90)
                         open_box(timedelay)
                         
                 logging.info("Open " + str(box) + " box.")
