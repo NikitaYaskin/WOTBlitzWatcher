@@ -24,7 +24,8 @@ def locate_box():
         "Locate if able to open a box"
         box = False
         while not box:
-                if pag.locateOnScreen('img//box1.png', confidence=0.9) != None:
+                if pag.locateOnScreen('img//box2.png', confidence=0.8, region=(1355, 44, 100, 100)) != None:
+                        box = True
                         return True
 			
 def load_logins():
