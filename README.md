@@ -16,6 +16,8 @@ DPI: 240
 
 Performance: 2 cores, 2048 Mb
 
+Smartphone emulation: Samsung S8
+
 Bluestacks official site https://www.bluestacks.com/index.html
 
 # Setup account
