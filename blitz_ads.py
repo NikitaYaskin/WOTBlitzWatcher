@@ -259,7 +259,7 @@ while True:
                 logging.info("Watch " + str(count) + " video.")
                 print("Watch " + str(count) + " video.")
                 count += 1
-                time.sleep(120)
+                time.sleep(110)
 
         elif count == 6:
                 xp(timedelay)
