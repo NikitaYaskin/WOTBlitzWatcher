@@ -240,7 +240,7 @@ if count == 1:
         login(logins[user_counter], passwords[user_counter], timedelay)
         logging.info("Login to " + str(logins[user_counter]) + " user.")
         print("Login to " + str(logins[user_counter]) + " user in ")
-        screenshot(logins[user_counter][:7])
+        screenshot(logins[user_counter][:6])
 
 
 while True:
@@ -251,18 +251,18 @@ while True:
                                 print("Open " + str(box) + " box.")
                                 box += 1
                                 open_box(timedelay)
-                                screenshot(logins[user_counter][:7])
+                                screenshot(logins[user_counter][:6])
                         time.sleep(timedelay)
 
                         if count == 4:
                                 logging.info("Open " + str(box) + " box.")
                                 print("Open " + str(box) + " box.")
                                 open_box(timedelay)
-                                screenshot(logins[user_counter][:7])
+                                screenshot(logins[user_counter][:6])
                                 box += 1
         
                 play_video(videoButtonLocation, timedelay)
-                screenshot(logins[user_counter][:7])
+                screenshot(logins[user_counter][:6])
                 logging.info("Watch " + str(count) + " video.")
                 print("Watch " + str(count) + " video.")
                 count += 1
@@ -270,7 +270,7 @@ while True:
 
         elif count == 6:
                 xp(timedelay)
-                screenshot(logins[user_counter][:7])
+                screenshot(logins[user_counter][:6])
                 logging.info("Get ?? XP")
                 print("Get ?? XP")
                 count += 1
@@ -278,7 +278,7 @@ while True:
                 if box == 3:
                         time.sleep(90)
                         open_box(timedelay)
-                        screenshot(logins[user_counter][:7])
+                        screenshot(logins[user_counter][:6])
                         
                 logging.info("Open " + str(box) + " box.")
                 print("Open " + str(box) + " box.")
@@ -291,7 +291,7 @@ while True:
                         check_medium_box(timedelay, boxDetection)
                         
                 if user_counter == user:
-                        screenshot(logins[user_counter][:7])
+                        screenshot(logins[user_counter][:6])
                         logout(timedelay)
                         print(timeTake)
                         break
