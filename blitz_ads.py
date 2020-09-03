@@ -290,8 +290,9 @@ while True:
                 if pag.pixelMatchesColor(1407, 65, (244, 244, 244), tolerance=20):
                         check_medium_box(timedelay, boxDetection)
                         
+                screenshot(logins[user_counter][:6])
+                
                 if user_counter == user:
-                        screenshot(logins[user_counter][:6])
                         logout(timedelay)
                         print(timeTake)
                         break
