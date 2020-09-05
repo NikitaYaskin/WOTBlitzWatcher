@@ -6,7 +6,7 @@ logging.info('Started')
 
 def screenshot(login):
         time.sleep(2)
-        imgName = 'count/' + login + str(datetime.date.today()) + '.png'
+        imgName = 'count/' + login + str(datetime.datetime.today()).replace(".", "--", 1).replace(":", "-", 1) + '.png'
         pag.screenshot(imgName, region=(117, 50, 1197, 42))
 
 def check_if_main_menu():
@@ -244,6 +244,7 @@ if count == 1:
 
 
 while True:
+        check_if_main_menu()
         if count <= 5:
                 if count == 1 or count == 4:
                         if box == 1:
