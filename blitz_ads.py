@@ -169,15 +169,15 @@ def open_medium_box(delay):
         """Check second and third boxes"""
         open_box_menu(delay)
         for pos in pag.locateAllOnScreen('img//openBox.png', confidence=0.8) != None:
-                pag.click(pag.locateAllOnScreen('img//openBox.png', confidence=0.8))
+                pag.click(pos)
                 time.sleep(delay)
                 back_button()
 
 def open_box(counter, delay):
         """Stand for every day opaning 3 first boxes"""
         open_box_menu(delay)
-        if counter == 1:
-                open_medium_box(delay)
+        #if counter == 1:
+        #        open_medium_box(delay)
 
         pag.click(229, 704)
         logging.info("Open first box")
@@ -205,7 +205,7 @@ def pixel_detection(delay, spot, colour):
                 
 
 count, box = 1, 1
-user, user_counter = 0, 0
+user, user_counter = 0, 4
 videoButtonLocation, boxDetection = False, False
 
 timedelay = 2
@@ -279,9 +279,9 @@ while True:
                         box += 1
 
         elif count == 7:
+                screenshot(logins[user_counter][:5])
                 user_counter += 1
                 time.sleep(timedelay)
-                screenshot(logins[user_counter][:5])
                 
                 if user_counter == user:
                         logout(timedelay)
