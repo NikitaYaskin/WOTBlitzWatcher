@@ -143,13 +143,13 @@ def login(login, password, delay):
         time.sleep(delay)
         pag.click(721, 325)
         print(login)
-        pag.typewrite(login)
+        pag.write(login)
 
         logging.info("Enter password")
         time.sleep(delay)
         pag.click(721, 410)
         print(password)
-        pag.typewrite(password) 
+        pag.write(password) 
 
         logging.info("Press Enter")
         time.sleep(delay)
@@ -168,16 +168,17 @@ def change_user(login_text, password_text, delay):
 def open_medium_box(delay):
         """Check second and third boxes"""
         open_box_menu(delay)
-        for pos in pag.locateAllOnScreen('img//openBox.png', confidence=0.8) != None:
+        for pos in pag.locateAllOnScreen('img//openBox.png', confidence=0.8, region=(575,633,779,86)) != None:
                 pag.click(pos)
                 time.sleep(delay)
+                back_button()
                 back_button()
 
 def open_box(counter, delay):
         """Stand for every day opaning 3 first boxes"""
         open_box_menu(delay)
-        #if counter == 1:
-        #        open_medium_box(delay)
+        if counter == 1:
+                open_medium_box(delay)
 
         pag.click(229, 704)
         logging.info("Open first box")
@@ -205,7 +206,7 @@ def pixel_detection(delay, spot, colour):
                 
 
 count, box = 1, 1
-user, user_counter = 0, 4
+user, user_counter = 0, 0
 videoButtonLocation, boxDetection = False, False
 
 timedelay = 2
