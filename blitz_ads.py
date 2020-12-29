@@ -87,8 +87,11 @@ def play_video(cordinates, delay):
 
         logging.info("Confirm to play video")
         pag.click(play_button[0], play_button[1])
-        time.sleep(35)
+        time.sleep(45)
 
+        imgName = 'exit/exit' + str(datetime.datetime.today()).replace(".", " ", 1).replace(":", "-", 1) + '.png'
+        pag.screenshot(imgName)
+        
         logging.info("Close video after 35 sec delay")
         close_video()
 
@@ -122,6 +125,7 @@ def logout(delay):
         logging.info("Disconnect")
         pag.moveTo(1163, 663, delay)
         pag.click()
+        time.sleep(4)
 
 def change_region(region, delay):
         """Change account region"""
@@ -133,28 +137,27 @@ def change_region(region, delay):
         pag.moveTo(region[0], region[1], delay)
         pag.click()
 
+def enterText(comment, delay, text, point, typingSpeed):
+        logging.info(comment)
+        time.sleep(delay)
+        pag.click(point)
+        print(text)
+        pag.typewrite(text, interval=typingSpeed)
+
 def login(login, password, delay):
         """Login to account"""
         logging.info("Start login")
         logging.info("Remove previos login")
         pag.click(989, 320, delay)
 
-        logging.info("Enter login")
-        time.sleep(delay)
-        pag.click(721, 325)
-        print(login)
-        pag.write(login)
-
-        logging.info("Enter password")
-        time.sleep(delay)
-        pag.click(721, 410)
-        print(password)
-        pag.write(password) 
+        enterText("Enter login", delay, login, (721, 325), 0.1)
+        
+        enterText("Enter password", delay, password, (721, 410), 0.1)
 
         logging.info("Press Enter")
         time.sleep(delay)
         pag.press('enter')
-        time.sleep(25)
+        time.sleep(40)
         
         check_if_main_menu()
 
@@ -173,12 +176,14 @@ def open_medium_box(delay):
                 time.sleep(delay)
                 back_button()
                 back_button()
+                if pos == None:
+                        pass
 
 def open_box(counter, delay):
         """Stand for every day opaning 3 first boxes"""
         open_box_menu(delay)
-        if counter == 1:
-                open_medium_box(delay)
+        #if counter == 1:
+        #       open_medium_box(delay)
 
         pag.click(229, 704)
         logging.info("Open first box")
@@ -206,10 +211,10 @@ def pixel_detection(delay, spot, colour):
                 
 
 count, box = 1, 1
-user, user_counter = 0, 0
+user, user_counter = 0, 4
 videoButtonLocation, boxDetection = False, False
 
-timedelay = 2
+timedelay = 3
 
 logging.info("Start detecting video button")
 
