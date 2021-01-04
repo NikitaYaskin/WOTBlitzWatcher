@@ -97,7 +97,7 @@ def play_video(cordinates, delay):
 
 def xp(delay):
         """Xp method stand for getting xp after watching video"""
-        box = (54, 410)
+        box = pag.locateOnScreen('img//xp.png', grayscale=True, confidence=0.9, region=(0, 174, 109, 816)) # Old coordinates (54, 410)
         box_xp = (982, 395)
 
         logging.info("Open tasks")
@@ -141,18 +141,19 @@ def enterText(comment, delay, text, point, typingSpeed):
         logging.info(comment)
         time.sleep(delay)
         pag.click(point)
-        print(text)
+        time.sleep(1)
         pag.typewrite(text, interval=typingSpeed)
 
 def login(login, password, delay):
+        typingSpeed = 0.1
         """Login to account"""
         logging.info("Start login")
         logging.info("Remove previos login")
         pag.click(989, 320, delay)
 
-        enterText("Enter login", delay, login, (721, 325), 0.1)
+        enterText("Enter login", delay, login, (721, 325), typingSpeed)
         
-        enterText("Enter password", delay, password, (721, 410), 0.1)
+        enterText("Enter password", delay, password, (721, 410), typingSpeed)
 
         logging.info("Press Enter")
         time.sleep(delay)
@@ -211,7 +212,7 @@ def pixel_detection(delay, spot, colour):
                 
 
 count, box = 1, 1
-user, user_counter = 0, 4
+user, user_counter = 0, 0
 videoButtonLocation, boxDetection = False, False
 
 timedelay = 3
@@ -230,7 +231,7 @@ logging.info("There is " + str(reg) + " regions.")
 user = count_users(user, users)
 logging.info("There is " + str(user) + " accounts.")
 
-#for r in users.keys(): str(r)
+#for c in users.keys(): str(r)
 for i, y in users["RU"].items():
         logins.append(i)
         passwords.append(y)
@@ -240,7 +241,6 @@ if count == 1:
         logging.info("Login to " + str(logins[user_counter]) + " user.")
         print("Login to " + str(logins[user_counter]) + " user in ")
         screenshot(logins[user_counter][:5])
-
 
 while True:
         check_if_main_menu()
