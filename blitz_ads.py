@@ -88,9 +88,6 @@ def play_video(cordinates, delay):
         logging.info("Confirm to play video")
         pag.click(play_button[0], play_button[1])
         time.sleep(45)
-
-        imgName = 'exit/exit' + str(datetime.datetime.today()).replace(".", " ", 1).replace(":", "-", 1) + '.png'
-        pag.screenshot(imgName)
         
         logging.info("Close video after 35 sec delay")
         close_video()
@@ -158,7 +155,7 @@ def login(login, password, delay):
         logging.info("Press Enter")
         time.sleep(delay)
         pag.press('enter')
-        time.sleep(40)
+        time.sleep(60)
         
         check_if_main_menu()
 
@@ -171,6 +168,7 @@ def change_user(login_text, password_text, delay):
 
 def open_medium_box(delay):
         """Check second and third boxes"""
+        check_if_main_menu()
         open_box_menu(delay)
         for pos in pag.locateAllOnScreen('img//openBox.png', confidence=0.8, region=(575,633,779,86)) != None:
                 pag.click(pos)
@@ -179,6 +177,7 @@ def open_medium_box(delay):
                 back_button()
                 if pos == None:
                         pass
+        back_button()
 
 def open_box(counter, delay):
         """Stand for every day opaning 3 first boxes"""
@@ -255,6 +254,9 @@ while True:
                         time.sleep(timedelay)
 
                         if count == 4:
+                                xp(timedelay)
+                                logging.info("Get ?? XP")
+                                print("Get ?? XP")
                                 logging.info("Open " + str(box) + " box.")
                                 print("Open " + str(box) + " box.")
                                 open_box(count, timedelay)
@@ -269,10 +271,7 @@ while True:
                 time.sleep(110)
 
         elif count == 6:
-                xp(timedelay)
-                screenshot(logins[user_counter][:5])
-                logging.info("Get ?? XP")
-                print("Get ?? XP")
+                screenshot(logins[user_counter][:5]) 
                 count += 1
                 
                 if box == 3:
@@ -288,6 +287,9 @@ while True:
                 screenshot(logins[user_counter][:5])
                 user_counter += 1
                 time.sleep(timedelay)
+                if pag.locateOnScreen('img//box1.png', confidence=0.8, grayscale=True):
+                        open_medium_box(timedelay)
+                        check_if_main_menu()
                 
                 if user_counter == user:
                         logout(timedelay)
