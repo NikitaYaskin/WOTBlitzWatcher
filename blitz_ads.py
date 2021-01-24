@@ -4,9 +4,19 @@ import time, random, logging, datetime, ast
 logging.basicConfig(filename='blitz.log',level=logging.DEBUG, format='%(asctime)s %(message)s')
 logging.info('Started')
 
+def screenResolution():
+       x, y = pag.size()
+       return x, y
+
+def halfOfScreen()
+        x, y = screenResolution()
+        x_axis = x / 2
+        y_axis = y / 2
+        return x_axis, y_axis
+
 def screenshot(login):
         time.sleep(2)
-        imgName = 'count/' + login + str(datetime.datetime.today()).replace(".", " ", 1).replace(":", "-", 1) + '.png'
+        imgName = 'count//' + login + str(datetime.datetime.today()).replace(".", " ", 1).replace(":", "-", 1) + '.png'
         pag.screenshot(imgName, region=(117, 50, 1197, 42))
 
 def check_if_main_menu():
@@ -111,17 +121,17 @@ def xp(delay):
 
 def logout(delay):
         """Logout account"""
-        pag.moveTo(55, 832, delay)
+        time.sleep(delay)
         logging.info("Move to end of side menu")
-        pag.click()
+        pag.click(55, 832)
 
         logging.info("Click on settings icon")
         time.sleep(delay)
         pag.click()
 
         logging.info("Disconnect")
-        pag.moveTo(1163, 663, delay)
-        pag.click()
+        time.sleep(delay)
+        pag.click(1163, 663)
         time.sleep(4)
 
 def change_region(region, delay):
@@ -155,7 +165,7 @@ def login(login, password, delay):
         logging.info("Press Enter")
         time.sleep(delay)
         pag.press('enter')
-        time.sleep(60)
+        time.sleep(30)
         
         check_if_main_menu()
 
@@ -170,7 +180,10 @@ def open_medium_box(delay):
         """Check second and third boxes"""
         check_if_main_menu()
         open_box_menu(delay)
-        for pos in pag.locateAllOnScreen('img//openBox.png', confidence=0.8, region=(575,633,779,86)) != None:
+        x, y = pag.size()
+        x_axis = x / 2
+        y_axis = y / 2
+        for pos in pag.locateAllOnScreen('img//openBox.png', confidence=0.8, region=(x_axis, y_axis, x, y)):
                 pag.click(pos)
                 time.sleep(delay)
                 back_button()
@@ -182,14 +195,16 @@ def open_medium_box(delay):
 def open_box(counter, delay):
         """Stand for every day opaning 3 first boxes"""
         open_box_menu(delay)
-        #if counter == 1:
-        #       open_medium_box(delay)
 
-        pag.click(229, 704)
-        logging.info("Open first box")
-        time.sleep(delay)
+        if pag.locateOnScreen('img//openBox.png', confidence=0.9, region=(86, 636, 368, 710)):
+                pag.click(229, 704)
+                logging.info("Open first box")
+                time.sleep(delay)
 
-        close_box(delay)
+                close_box(delay)
+        else:
+                back_button()
+        
 
 def count_users(user, users):
         """Count how much users in file"""
@@ -286,8 +301,8 @@ while True:
         elif count == 7:
                 screenshot(logins[user_counter][:5])
                 user_counter += 1
-                time.sleep(timedelay)
-                if pag.locateOnScreen('img//box1.png', confidence=0.8, grayscale=True):
+                time.sleep(3)
+                if pag.locateOnScreen('img//box2.png', confidence=0.8):
                         open_medium_box(timedelay)
                         check_if_main_menu()
                 
