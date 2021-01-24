@@ -27,4 +27,4 @@ Login and password like this:
 {"EU": {"Email": "Password", "Email1": "Password1"}, "RU": {"Emai2": "Password2", "Email3": "Password3"}}
 
 # Before starting the script
-You must exit of your account, and enter login screen. Then run script.
+You must exit of your account, and enter login screen. Then run script. And if you have several locales change locale to English.
