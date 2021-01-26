@@ -8,7 +8,7 @@ def screenResolution():
        x, y = pag.size()
        return x, y
 
-def halfOfScreen()
+def halfOfScreen():
         x, y = screenResolution()
         x_axis = x / 2
         y_axis = y / 2
@@ -16,8 +16,9 @@ def halfOfScreen()
 
 def screenshot(login):
         time.sleep(2)
-        imgName = 'count//' + login + str(datetime.datetime.today()).replace(".", " ", 1).replace(":", "-", 1) + '.png'
-        pag.screenshot(imgName, region=(117, 50, 1197, 42))
+        imgName = 'count//' + login + str(datetime.datetime.today()).replace(".", " ", 1).replace(":", "-", 1) + '.PNG'
+        pag.screenshot(imgName)
+        time.sleep(1)
 
 def check_if_main_menu():
         """Checking if on desplay main menu"""
@@ -104,10 +105,10 @@ def play_video(cordinates, delay):
 
 def xp(delay):
         """Xp method stand for getting xp after watching video"""
-        box = pag.locateOnScreen('img//xp.png', grayscale=True, confidence=0.9, region=(0, 174, 109, 816)) # Old coordinates (54, 410)
+        box = pag.locateOnScreen('img//xp1.png', confidence=0.9, region=(0, 174, 109, 816))
         box_xp = (982, 395)
 
-        logging.info("Open tasks")
+        logging.info("Open daily tasks")
         pag.click(box)
         time.sleep(delay)
 
@@ -226,7 +227,7 @@ def pixel_detection(delay, spot, colour):
                 
 
 count, box = 1, 1
-user, user_counter = 0, 0
+user, user_counter = 0, 4
 videoButtonLocation, boxDetection = False, False
 
 timedelay = 3
