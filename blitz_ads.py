@@ -14,11 +14,14 @@ def halfOfScreen():
         y_axis = y / 2
         return x_axis, y_axis
 
-def screenshot(login):
+def screenshot(text, folder):
         time.sleep(2)
-        imgName = 'count//' + login + str(datetime.datetime.today()).replace(".", " ", 1).replace(":", "-", 1) + '.PNG'
-        pag.screenshot(imgName)
+        imgName = folder + text + str(datetime.datetime.today())[:16].replace(".", " ", 1).replace(":", "-", 1) + '.png'
+        pag.screenshot().save(imgName)
         time.sleep(1)
+
+def countScreenshot(login):
+       screenshot(login, 'count/')
 
 def check_if_main_menu():
         """Checking if on desplay main menu"""
@@ -112,6 +115,9 @@ def xp(delay):
         pag.click(box)
         time.sleep(delay)
 
+        logging.info("Get screenshot")
+        screenshot('xp', 'xp/')
+
         logging.info("Get XP from combat missions menu")
         pag.click(box_xp)
         time.sleep(delay)
@@ -174,23 +180,20 @@ def change_user(login_text, password_text, delay):
         """Change user to next on list"""
         logout(delay)
         time.sleep(delay)
-        #change_region( ,delay)
         login(login_text, password_text, delay)
 
 def open_medium_box(delay):
         """Check second and third boxes"""
         check_if_main_menu()
         open_box_menu(delay)
-        x, y = pag.size()
-        x_axis = x / 2
-        y_axis = y / 2
-        for pos in pag.locateAllOnScreen('img//openBox.png', confidence=0.8, region=(x_axis, y_axis, x, y)):
-                pag.click(pos)
-                time.sleep(delay)
-                back_button()
-                back_button()
-                if pos == None:
-                        pass
+        screenshot('box', 'box/')
+        boxes = [[598, 673, 233, 57], [1093, 673, 249, 62]]
+
+        for box in boxes:
+               if pag.locateOnScreen('img//openBox.png', regioon=box):
+                      time.sleep(delay)
+                      back_button()
+                      back_button()
         back_button()
 
 def open_box(counter, delay):
@@ -227,7 +230,7 @@ def pixel_detection(delay, spot, colour):
                 
 
 count, box = 1, 1
-user, user_counter = 0, 4
+user, user_counter = 0, 0
 videoButtonLocation, boxDetection = False, False
 
 timedelay = 3
@@ -255,7 +258,7 @@ if count == 1:
         login(logins[user_counter], passwords[user_counter], timedelay)
         logging.info("Login to " + str(logins[user_counter]) + " user.")
         print("Login to " + str(logins[user_counter]) + " user in ")
-        screenshot(logins[user_counter][:5])
+        screenshot(logins[user_counter][:5], 'count/')
 
 while True:
         check_if_main_menu()
@@ -266,7 +269,7 @@ while True:
                                 print("Open " + str(box) + " box.")
                                 box += 1
                                 open_box(count, timedelay)
-                                screenshot(logins[user_counter][:5])
+                                countScreenshot(logins[user_counter][:5])
                         time.sleep(timedelay)
 
                         if count == 4:
@@ -276,31 +279,31 @@ while True:
                                 logging.info("Open " + str(box) + " box.")
                                 print("Open " + str(box) + " box.")
                                 open_box(count, timedelay)
-                                screenshot(logins[user_counter][:5])
+                                countScreenshot(logins[user_counter][:5])
                                 box += 1
         
                 play_video(videoButtonLocation, timedelay)
-                screenshot(logins[user_counter][:5])
+                countScreenshot(logins[user_counter][:5])
                 logging.info("Watch " + str(count) + " video.")
                 print("Watch " + str(count) + " video.")
                 count += 1
                 time.sleep(110)
 
         elif count == 6:
-                screenshot(logins[user_counter][:5]) 
+                countScreenshot(logins[user_counter][:5]) 
                 count += 1
                 
                 if box == 3:
                         time.sleep(90)
                         open_box(count, timedelay)
-                        screenshot(logins[user_counter][:5])
+                        countScreenshot(logins[user_counter][:5])
                         
                         logging.info("Open " + str(box) + " box.")
                         print("Open " + str(box) + " box.")
                         box += 1
 
         elif count == 7:
-                screenshot(logins[user_counter][:5])
+                countScreenshot(logins[user_counter][:5])
                 user_counter += 1
                 time.sleep(3)
                 if pag.locateOnScreen('img//box2.png', confidence=0.8):
