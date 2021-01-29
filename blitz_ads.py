@@ -104,6 +104,7 @@ def play_video(cordinates, delay):
         time.sleep(45)
         
         logging.info("Close video after 35 sec delay")
+        screenshot('exit', 'exit/')
         close_video()
 
 def xp(delay):
@@ -190,7 +191,7 @@ def open_medium_box(delay):
         boxes = [[598, 673, 233, 57], [1093, 673, 249, 62]]
 
         for box in boxes:
-               if pag.locateOnScreen('img//openBox.png', regioon=box):
+               if pag.locateOnScreen('img//openBox.png', region=box):
                       time.sleep(delay)
                       back_button()
                       back_button()
